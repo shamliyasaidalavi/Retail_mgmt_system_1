@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip/Api/api_sevices.dart';
 
 class closedorder extends StatefulWidget {
   const closedorder ({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class _closedorderState extends State<closedorder > {
     'images/two.jpg',
     'images/three.jpg',
   ];
+  List _loadprooducts = [];
+  ApiService client = ApiService();
   final List<String> imageTitles = ["Customer name:shamli", "Customer name:shamli", "Customer name:shamli", "Customer name:shamli"];
   final List<String> Titles = ["Address:mangattil(H)tirur", "Address:mangattil(H)tirur", "Address:mangattil(H)tirur", "Address:"];
   final List<String> Titless = ["Phone nmr:9895780059", "Phone nmr:9895780059", "Phone nmr:9895780059", "Phoe nmr:9895780059"];
@@ -48,6 +51,12 @@ class _closedorderState extends State<closedorder > {
 
                 Text("Closed Orders",
                     style: TextStyle(fontWeight: FontWeight.w400, fontSize: 40)),
+                //           FutureBuilder <List<deliveryModel>>(
+                //     future: client.fetchdelivery(),
+                // builder: (BuildContext context,
+                // AsyncSnapshot<List<deliveryModel>> snapshot) {
+                // if (snapshot.hasData) {
+                // return
                 ListView.separated(
                   shrinkWrap: true,
                   separatorBuilder: (context, index) {
@@ -115,6 +124,10 @@ class _closedorderState extends State<closedorder > {
                     );
                   },
                 ),
+                // }
+                // return Center(child: CircularProgressIndicator());
+                //     }
+                //           ),
 
               ],
             ),

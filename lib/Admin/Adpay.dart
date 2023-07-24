@@ -14,7 +14,8 @@ class _admpaymtState extends State<admpaymt> {
     'images/60111.jpg',
     'images/60111.jpg',
   ];
-
+  // List _loadprooducts = [];
+  // ApiService client = ApiService();
   final List<String> Billnumber= ["232445", "556", "4345", "45667"];
   final List<String> Userid = ["3445", "45466", "34590", "123489"];
   final List<String> Username = ["sudhee", "shamli", "vicy", "Aju"];
@@ -47,6 +48,12 @@ class _admpaymtState extends State<admpaymt> {
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 40),
               ),
             ),
+            //           FutureBuilder <List<salesModel>>(
+            //     future: client.fetchsales(),
+            // builder: (BuildContext context,
+            // AsyncSnapshot<List<salesModel>> snapshot) {
+            // if (snapshot.hasData) {
+            // return
             ListView.separated(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -123,6 +130,12 @@ class _admpaymtState extends State<admpaymt> {
                 );
               },
             ),
+
+// }
+            // return Center(child: CircularProgressIndicator());
+            //     }
+            //           ),
+
           ],
         ),
       ),

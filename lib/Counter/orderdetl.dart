@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip/Api/api_sevices.dart';
 import 'package:trip/Counter/ordrusers.dart';
 import 'package:trip/Counter/takeawylist.dart';
 
@@ -8,7 +9,8 @@ class orderdtl extends StatefulWidget {
   @override
   State<orderdtl> createState() => _orderdtlState();
 }
-
+List _loadprooducts = [];
+ApiService client = ApiService();
 final List<String> imageTitles = ["TAKE AWAY"];
 final List<String> imageTitless = ["OnLInE DEL"];
 
@@ -44,9 +46,16 @@ class _orderdtlState extends State<orderdtl> {
             ),
             SizedBox(
               height: 100, // Adjust the height as needed
+              //           FutureBuilder <List<salesModel>>(
+              //     future: client.fetchsales(),
+              // builder: (BuildContext context,
+              // AsyncSnapshot<List<salesModel>> snapshot) {
+              // if (snapshot.hasData) {
+              // return
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: imageTitles.length,
+                // itemCount: snapshot.data!.length,
 
                 itemBuilder: (context, index) {
                   return Padding(
@@ -137,6 +146,10 @@ class _orderdtlState extends State<orderdtl> {
                   );
                 },
               ),
+              // }
+              // return Center(child: CircularProgressIndicator());
+              //     }
+              //           ),
             ),
           ],
         ),

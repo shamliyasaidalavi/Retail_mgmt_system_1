@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip/Api/api_sevices.dart';
 
 class Openorder extends StatefulWidget {
   const Openorder({Key? key}) : super(key: key);
@@ -18,7 +19,11 @@ class _OpenorderState extends State<Openorder> {
   final List<String> imageTitles = ["Customer name:shamli", "Customer name:shamli", "Customer name:shamli", "Customer name:shamli"];
   final List<String> Titles = ["Address:mangattil (H) tirur", "Address:mangattil (H) tirur", "Address:mangattil (H) tirur", "Address:"];
   final List<String> Titless = ["Phone nmr:9895780059", "Phone nmr:9895780059", "Phone nmr:9895780059", "Phoe nmr:9895780059"];
+  final List<String> orderid = ["orderid:98957", "orderid:0059", "orderid:9895780059", "orderid:989059"];
    bool _isExpanded=false;
+  List _loadprooducts = [];
+  ApiService client = ApiService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold( appBar: AppBar(
@@ -45,6 +50,12 @@ class _OpenorderState extends State<Openorder> {
 
       Text("Open Order",
       style: TextStyle(fontWeight: FontWeight.w400, fontSize: 40)),
+        //           FutureBuilder <List<deliveryModel>>(
+        //     future: client.fetchdeliveryy(),
+        // builder: (BuildContext context,
+        // AsyncSnapshot<List<deliveryModel>> snapshot) {
+        // if (snapshot.hasData) {
+        // return
       ListView.separated(
       shrinkWrap: true,
       separatorBuilder: (context, index) {
@@ -52,8 +63,9 @@ class _OpenorderState extends State<Openorder> {
       width: 10,
       );
       },
-      //   scrollDirection: Axis.vertical,
+        scrollDirection: Axis.vertical,
       itemCount: 4,
+        // itemCount: snapshot.data!.length,
       itemBuilder: (context, index) {
       return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -84,6 +96,8 @@ class _OpenorderState extends State<Openorder> {
       ),
         Text("${Titless[index]}"
         ),
+        Text("${orderid[index]}"
+        ),
       ],
       ),
 
@@ -101,12 +115,12 @@ class _OpenorderState extends State<Openorder> {
               child: _isExpanded
                   ? Column(
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      // Perform action for the first expanded button
-                    },
-                    child: Text('Cancel'),
-                  ),
+                  // ElevatedButton(
+                  //   onPressed: () {
+                  //     // Perform action for the first expanded button
+                  //   },
+                  //   child: Text('Cancel'),
+                  // ),
                   ElevatedButton(
                     onPressed: () {
                       // Perform action for the second expanded button
@@ -134,6 +148,10 @@ class _OpenorderState extends State<Openorder> {
       );
       },
       ),
+        // }
+        // return Center(child: CircularProgressIndicator());
+        //     }
+        //           ),
 
       ],
       ),

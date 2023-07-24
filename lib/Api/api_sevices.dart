@@ -241,7 +241,34 @@ class ApiService {
       return products;
     }
   }
+  Future<List<deliveryModel>> fetchdeliveryy() async {
+    var response = await Api().getData('/delivery/view_del');
+    if (response.statusCode == 200) {
+      var items = json.decode(response.body);
 
+
+      List<deliveryModel> products = List<deliveryModel>.from(
+          items['data'].map((e) => deliveryModel.fromJson(e)).toList());
+      return products;
+    } else {
+      List<deliveryModel> products = [];
+      return products;
+    }
+  }
+  Future<List<orderModel>> fetchorder() async {
+    var response = await Api().getData('/order/view_order');
+    if (response.statusCode == 200) {
+      var items = json.decode(response.body);
+
+
+      List<orderModel> products = List<orderModel>.from(
+          items['data'].map((e) => orderModel.fromJson(e)).toList());
+      return products;
+    } else {
+      List<orderModel> products = [];
+      return products;
+    }
+  }
   // Future<List<placeorderModel>> fetchplaceorder(String userid) async {
   //   var response = await Api().getData('/cart/view_order'+userid);
   //   if (response.statusCode == 200) {

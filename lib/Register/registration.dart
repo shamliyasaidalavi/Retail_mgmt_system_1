@@ -239,21 +239,28 @@ class _usersignupState extends State<usersignup> {
                 ),
               ),
               Padding(
-                padding:
-                const EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20),
+                padding: const EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20),
                 child: TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(
                     labelStyle: TextStyle(color: Colors.black),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
                     labelText: "Email",
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
+                      return 'Please enter an email';
                     }
+
+                    // Regular expression for basic email validation
+                    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
+                    if (!emailRegex.hasMatch(value)) {
+                      return 'Please enter a valid email';
+                    }
+
+                    // You can add more complex email validation logic here if needed
+
                     return null;
                   },
                 ),
@@ -345,7 +352,7 @@ class _usersignupState extends State<usersignup> {
                   child: RichText(
                     text: TextSpan(
                       text: 'Don\'t have an account?',
-                      style: TextStyle(color: Colors.green, fontSize: 18),
+                      style: TextStyle(color: Colors.lightBlueAccent, fontSize: 18),
                       children: <TextSpan>[
                         TextSpan(
                           text: ' Login',

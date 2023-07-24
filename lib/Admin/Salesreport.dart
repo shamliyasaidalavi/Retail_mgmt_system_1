@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../admoredtls.dart';
+import 'admoredtls.dart';
 
 class Admisalesreport extends StatefulWidget {
   const Admisalesreport({Key? key}) : super(key: key);
@@ -16,6 +16,8 @@ class _AdmisalesreportState extends State<Admisalesreport> {
     'images/two.jpg',
     'images/three.jpg',
   ];
+  // List _loadprooducts = [];
+  // ApiService client = ApiService();
   final List<String> imageTitles = ["12-5-2023", "12-5-2023", "12-5-2023", "12-5-2023"];
   final List<String> Titles = ["35465767", "354645", "35465767", "35465767"];
   final List<String> Titless = ["9", "5", "3", "2"];
@@ -83,6 +85,13 @@ class _AdmisalesreportState extends State<Admisalesreport> {
 
               ),
 
+              //           FutureBuilder <List<salesModel>>(
+              //     future: client.fetchsales(),
+              // builder: (BuildContext context,
+              // AsyncSnapshot<List<salesModel>> snapshot) {
+              // if (snapshot.hasData) {
+              // return
+
               ListView.separated(
                 shrinkWrap: true,
                 separatorBuilder: (context, index) {
@@ -92,6 +101,7 @@ class _AdmisalesreportState extends State<Admisalesreport> {
                 },
                 //   scrollDirection: Axis.vertical,
                 itemCount: 4,
+                // itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -150,7 +160,10 @@ class _AdmisalesreportState extends State<Admisalesreport> {
                 },
               ),
 
-
+// }
+              // return Center(child: CircularProgressIndicator());
+              //     }
+              //           ),
 
             ],
           ),

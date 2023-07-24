@@ -41,6 +41,12 @@ class _orderuserssState extends State<orderuserss> {
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 40),
               ),
             ),
+            //           FutureBuilder <List<orderModel>>(
+            //     future: client.fetchorder(),
+            // builder: (BuildContext context,
+            // AsyncSnapshot<List<orderModel>> snapshot) {
+            // if (snapshot.hasData) {
+            // retur
             ListView.separated(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -80,10 +86,10 @@ class _orderuserssState extends State<orderuserss> {
                               icon: Icon(Icons.arrow_forward_ios_outlined),
                               color: Colors.grey[600],
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => userdtl()),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(builder: (context) => userdtl()),
+                                // );
                               },
                             ),
                           ],

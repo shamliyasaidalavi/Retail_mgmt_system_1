@@ -14,6 +14,8 @@ class _adsalesdtlsState extends State<adsalesdtls> {
     'images/two.jpg',
     'images/three.jpg',
   ];
+  // List _loadprooducts = [];
+  // ApiService client = ApiService();
   final List<String> imageTitles = ["Rice", "Meat", "vegetables", "fruits"];
   final List<String> Titles = ["Rs100-2items", "Rs512.10-1item", "Rs50-4item", "Rs60.20-3item"];
 
@@ -42,6 +44,13 @@ class _adsalesdtlsState extends State<adsalesdtls> {
 
           Text("More Details",
               style: TextStyle(fontWeight: FontWeight.w400, fontSize: 40)),
+          //           FutureBuilder <List<salesModel>>(
+          //     future: client.fetchsales(),
+          // builder: (BuildContext context,
+          // AsyncSnapshot<List<salesModel>> snapshot) {
+          // if (snapshot.hasData) {
+          // return
+
           ListView.separated(
             shrinkWrap: true,
             separatorBuilder: (context, index) {
@@ -90,7 +99,10 @@ class _adsalesdtlsState extends State<adsalesdtls> {
               );
             },
           ),
-
+// }
+          // return Center(child: CircularProgressIndicator());
+          //     }
+          //           ),
           Container(
             height: 200,
             padding: const EdgeInsets.only(top: 15, left: 15, right: 15),

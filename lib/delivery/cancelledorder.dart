@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip/Api/api_sevices.dart';
 
 class cancelledorder extends StatefulWidget {
   const cancelledorder({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class _cancelledorderState extends State<cancelledorder> {
     'images/two.jpg',
     'images/three.jpg',
   ];
+  List _loadprooducts = [];
+  ApiService client = ApiService();
   final List<String> imageTitles = ["Customername:shamli", "Customername:shamli", "Customername:shamli", "Customername:shamli"];
   final List<String> Titles = ["Address:mangattil (H)tirur", "Address:mangattil (H)tirur", "Address:mangattil (H)tirur", "Address:"];
   final List<String> Titless = ["Phone nmr:9895780059", "Phone nmr:9895780059", "Phone nmr:9895780059", "Phoe nmr:9895780059"];
@@ -53,6 +56,12 @@ class _cancelledorderState extends State<cancelledorder> {
 
               Text("Cancelled Orders",
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 40)),
+              //           FutureBuilder <List<deliveryModel>>(
+              //     future: client.fetchdeliveryy(),
+              // builder: (BuildContext context,
+              // AsyncSnapshot<List<deliveryModel>> snapshot) {
+              // if (snapshot.hasData) {
+              // return
               ListView.separated(
                 shrinkWrap: true,
                 separatorBuilder: (context, index) {
@@ -62,6 +71,8 @@ class _cancelledorderState extends State<cancelledorder> {
                 },
                 //   scrollDirection: Axis.vertical,
                 itemCount: 4,
+                // itemCount: snapshot.data!.length,
+
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -133,6 +144,10 @@ class _cancelledorderState extends State<cancelledorder> {
                   );
                 },
               ),
+              // }
+              // return Center(child: CircularProgressIndicator());
+              //     }
+              //           ),
 
             ],
           ),

@@ -184,11 +184,21 @@ class _CntrRegisterState extends State<CntrRegister> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter an email';
                     }
+
+                    // Regular expression for basic email validation
+                    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
+                    if (!emailRegex.hasMatch(value)) {
+                      return 'Please enter a valid email';
+                    }
+
                     // You can add more complex email validation logic here if needed
+
                     return null;
                   },
                 ),
               ),
+
               Padding(
                 padding: const EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20),
                 child: TextFormField(

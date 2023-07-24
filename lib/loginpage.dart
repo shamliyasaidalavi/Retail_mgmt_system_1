@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trip/Admin/Admin.dart';
 import 'package:trip/Counter/Couter.dart';
 import 'package:trip/Godown/godown.dart';
+import 'package:trip/Register/Allregister.dart';
 import 'package:trip/User/homepage2.dart';
 import 'package:trip/User/mainscreen.dart';
 import 'package:trip/delivery/M%20delivery.dart';
@@ -203,21 +204,30 @@ class _LoginState extends State< Login> {
                   }, child: Text("login"))
               ),
               Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(8.0),
                 child: RichText(
                   text: TextSpan(
-                    text: 'dont have an account?signup ',
-                    style: TextStyle(fontSize: 18),
-                    children: const <TextSpan>[
-                      TextSpan(text: 'signup', style: TextStyle(fontWeight: FontWeight.bold),
-
-
+                    text: "Don't have an account? ",
+                    style: TextStyle(fontSize: 18, color: Colors.lightBlueAccent),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'SignUp',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Signup1(),
+                              ),
+                            );
+                          },
                       ),
-
                     ],
                   ),
                 ),
-              )
+              ),
+
             ],
           ),
         ),

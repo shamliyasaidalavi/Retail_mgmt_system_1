@@ -181,24 +181,30 @@ class _DelRegState extends State<DelReg> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(
-                    left: 100.0, right: 100.0, bottom: 20),
+                padding: const EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20),
                 child: TextFormField(
                   controller: emailController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Email is required';
-                    }
-                    // Add email format validation logic if needed
-                    return null;
-                  },
                   decoration: InputDecoration(
                     labelStyle: TextStyle(color: Colors.black),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
                     labelText: "Email",
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter an email';
+                    }
+
+                    // Regular expression for basic email validation
+                    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
+                    if (!emailRegex.hasMatch(value)) {
+                      return 'Please enter a valid email';
+                    }
+
+                    // You can add more complex email validation logic here if needed
+
+                    return null;
+                  },
                 ),
               ),
               Padding(

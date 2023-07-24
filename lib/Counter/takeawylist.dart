@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:trip/Api/api_sevices.dart';
+import 'package:trip/Counter/userdtl.dart';
 
 class takawtlist extends StatefulWidget {
   const takawtlist({Key? key}) : super(key: key);
@@ -14,9 +16,11 @@ class _takawtlistState extends State<takawtlist> {
   //   'images/two.jpg',
   //   'images/three.jpg',
   // ];
-
+  List _loadprooducts = [];
+  ApiService client = ApiService();
   final List<String> users = ["User1", "User2", "User3", "User4"];
   final List<String> username = ["sudhee", "vincy", "sanitha", "shana"];
+  final List<String> date = ["26th March", "1st june", "11th may", "4 july"];
 
 
 
@@ -48,6 +52,12 @@ class _takawtlistState extends State<takawtlist> {
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 40),
               ),
             ),
+    //  FutureBuilder <List<orderModel>>(
+        //     future: client.fetchorder(),
+        // builder: (BuildContext context,
+        // AsyncSnapshot<List<orderModel>> snapshot) {
+        // if (snapshot.hasData) {
+        // return
             ListView.separated(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -57,6 +67,7 @@ class _takawtlistState extends State<takawtlist> {
                 );
               },
               itemCount: 4,
+              // itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -109,6 +120,14 @@ class _takawtlistState extends State<takawtlist> {
                                     color: Colors.grey[600],
                                   ),
                                 ),
+                                SizedBox(height: 4),
+                                Text(
+                                  date[index],
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
                               ],
                             ),
                             Spacer(),
@@ -116,9 +135,14 @@ class _takawtlistState extends State<takawtlist> {
                               icon: Icon(Icons.arrow_forward_ios_outlined),
                               color: Colors.grey[600],
                               onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => userdtl()),
+                );
+                },
 
 
-                              },
+
                             ),
                           ],
                         ),
@@ -128,6 +152,10 @@ class _takawtlistState extends State<takawtlist> {
                 );
               },
             ),
+            // }
+            // return Center(child: CircularProgressIndicator());
+            //     }
+            //           ),
           ],
         ),
       ),
