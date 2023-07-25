@@ -35,7 +35,7 @@ class _placeorderState extends State<placeorder> {
     user_id = (localStorage.getString('user_id') ?? '');
     print("uid${user_id}");
     var response =
-    await Api().getData('/order/view_completed_orders/' + user_id.replaceAll('"', ''));
+    await Api().getData('/order/view_order/' + user_id.replaceAll('"', ''));
     if (response.statusCode == 200) {
       var items = json.decode(response.body);
     //  print("itemsss${json.decode(response.body)}");

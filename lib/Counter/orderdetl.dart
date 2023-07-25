@@ -11,8 +11,8 @@ class orderdtl extends StatefulWidget {
 }
 List _loadprooducts = [];
 ApiService client = ApiService();
-final List<String> imageTitles = ["TAKE AWAY"];
-final List<String> imageTitless = ["OnLInE DEL"];
+final List<String> imageTitles = ["take_away"];
+final List<String> imageTitless = ["online_ delivery"];
 
 class _orderdtlState extends State<orderdtl> {
   @override

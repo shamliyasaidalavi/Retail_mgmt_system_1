@@ -10,6 +10,7 @@ class orderuserss extends StatefulWidget {
 }
 
 final List<String> imageTitles = ["USER1", "USER2"];
+final List<String> user_name = ["sani", "sudhee"];
 
 class _orderuserssState extends State<orderuserss> {
   @override
@@ -46,7 +47,7 @@ class _orderuserssState extends State<orderuserss> {
             // builder: (BuildContext context,
             // AsyncSnapshot<List<orderModel>> snapshot) {
             // if (snapshot.hasData) {
-            // retur
+            // return
             ListView.separated(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -77,6 +78,14 @@ class _orderuserssState extends State<orderuserss> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  user_name[index],
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[600],
                                   ),
                                 ),
                               ],

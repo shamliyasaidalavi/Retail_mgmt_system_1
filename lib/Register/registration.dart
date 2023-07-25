@@ -31,6 +31,9 @@ class _usersignupState extends State<usersignup> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
+  var _selectedGender;
+
+
   @override
   void dispose() {
     // Dispose the controllers
@@ -219,8 +222,7 @@ class _usersignupState extends State<usersignup> {
               ),
 
               Padding(
-                padding:
-                const EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20),
+                padding: const EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20),
                 child: TextFormField(
                   controller: _addressController,
                   decoration: InputDecoration(
@@ -234,10 +236,20 @@ class _usersignupState extends State<usersignup> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your address';
                     }
+
+                    // Regular expression to validate the address format.
+                    // You can adjust this pattern based on your specific address format requirements.
+                    final addressPattern = r'^[0-9A-Za-z.,\- ]+$';
+
+                    if (!RegExp(addressPattern).hasMatch(value)) {
+                      return 'Invalid address format';
+                    }
+
                     return null;
                   },
                 ),
               ),
+
               Padding(
                 padding: const EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20),
                 child: TextFormField(
@@ -266,10 +278,16 @@ class _usersignupState extends State<usersignup> {
                 ),
               ),
               Padding(
-                padding:
-                const EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20),
-                child: TextFormField(
-                  controller: _genderController,
+                padding: const EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20),
+                child: DropdownButtonFormField<String>(
+
+                  value: _selectedGender,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _selectedGender = newValue;
+                    });
+                  },
+
                   decoration: InputDecoration(
                     labelStyle: TextStyle(color: Colors.black),
                     border: OutlineInputBorder(
@@ -279,12 +297,23 @@ class _usersignupState extends State<usersignup> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your gender';
+                      return 'Please select your gender';
                     }
                     return null;
                   },
+                  items: <String>[
+                    'Male',
+                    'Female',
+                    'Other',
+                  ].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                 ),
               ),
+
               Padding(
                 padding:
                 const EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20),

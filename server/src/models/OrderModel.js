@@ -14,6 +14,8 @@ const orderSchema = new schema({
     date: { type: String },
     mode:{ type: String },
     status: { type: String },
+    product_name: { type: String },
+    first_name: { type: String },
     
     
 })
