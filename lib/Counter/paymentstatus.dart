@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trip/Admin/model/paymentModel.dart';
+import 'package:trip/Admin/model/salesModel.dart';
 import 'package:trip/Api/api_sevices.dart';
+import 'package:trip/Counter/ordrusers.dart';
 
 class paymentstatus extends StatefulWidget {
   const paymentstatus({Key? key}) : super(key: key);
@@ -9,9 +12,11 @@ class paymentstatus extends StatefulWidget {
   State<paymentstatus> createState() => _paymentstatusState();
 }
 List _loadprooducts = [];
+String user_id = '';
+late SharedPreferences prefs;
 ApiService client = ApiService();
 class _paymentstatusState extends State<paymentstatus> {
-  final List<String>user_name = [
+  final List<String>username = [
     "Username:shamli",
     "Username:shamli",
     "Username:shamli",
@@ -34,7 +39,22 @@ class _paymentstatusState extends State<paymentstatus> {
   final List<String> Time = [ "Time:12.00pm", "Time:1.00pm", "Time:2.00pm", "Time:3.00pm"];
   final List<String> phonenumber = [ "9895780059", "9895780059", "9895780059.", "9895780059"];
   bool _isExpanded = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getId();
 
+  }
+
+
+  void getId()async{
+    prefs = await SharedPreferences.getInstance();
+    user_id = (prefs.getString('user_id') ?? '');
+    print('User ID ${user_id}');
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,10 +81,10 @@ class _paymentstatusState extends State<paymentstatus> {
               Text("Payment Status",
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 40)),
 
-    FutureBuilder <List<paymentModel>>(
-    future: client.fetchpayment(),
+    FutureBuilder <List<salesModel>>(
+    future: client.fetchsales(),
     builder: (BuildContext context,
-    AsyncSnapshot<List<paymentModel>> snapshot) {
+    AsyncSnapshot<List<salesModel>> snapshot) {
     if (snapshot.hasData) {
     return ListView.separated(
     shrinkWrap: true,
@@ -74,8 +94,8 @@ class _paymentstatusState extends State<paymentstatus> {
     );
     },
     //   scrollDirection: Axis.vertical,
-    itemCount: 4,
-      // itemCount: snapshot.data!.length,
+
+      itemCount: snapshot.data!.length,
     itemBuilder: (context, index) {
     return Padding(
     padding: const EdgeInsets.all(8.0),
@@ -100,29 +120,29 @@ class _paymentstatusState extends State<paymentstatus> {
 
     Column(
     children: [
-    Text("${user_name[index]}",
+    Text("Username: ${first_name[index]}",
     style: TextStyle(color: Colors.grey[600]),
     ),
 
-    Text("${order_id[index]}",
+    Text(" orderid:${(snapshot.data![index].order_id)}",
     style: TextStyle(color: Colors.grey[600]),
     ),
 
-    Text("Pay Type:${ PaymetMethod[index]}",
+    Text("paymenttype:${(snapshot.data![index].mode)}",
     style: TextStyle(color: Colors.grey[600]),
     ),
-    Text("${Date[index]}",
+    Text(" date:${(snapshot.data![index].date)}",
     style: TextStyle(color: Colors.grey[500]),
     ),
-    Text("${Time[index]}",
-    style: TextStyle(color: Colors.grey[500]),
-    ),
+    // Text(" total:${(snapshot.data![index].total)}",
+    // style: TextStyle(color: Colors.grey[500]),
+    // ),
     ],
     ),
 
-    Text("${Amount[index]}",
-    style: TextStyle(color: Colors.lightBlue),
-    ),
+    // Text("${Amount[index]}",
+    // style: TextStyle(color: Colors.lightBlue),
+    // ),
 
     Icon(Icons.check_circle, color: Colors.green,),
 

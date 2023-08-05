@@ -33,7 +33,7 @@ class deliveryModel{
       order_id: json['order_id'],
       time: json['time'],
       logid: json['logid'],
-      delboyname: json['delboyname'],
+      delboyname: json['deliveryboy_name'],
     );
   }
 }

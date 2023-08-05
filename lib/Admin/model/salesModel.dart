@@ -1,34 +1,40 @@
 class salesModel {
-  final String bill_number;
   final String id;
-  final String Username;
-  final String Amount;
-  final String Amounttype;
-  final String Date;
+  final String mode;
+  final String date;
+  final String order_id;
+  final String price;
+  final String productname;
+  final String image;
+   final String first_name;
+  // final String total;
 
-  final String totalValue;
 
 
   salesModel({
-    required this. bill_number,
     required this.id,
-    required this.Username,
-    required this.Amount,
-    required this.Amounttype,
-    required this.Date,
-    required this.totalValue,
+    required this.mode,
+    required this.date,
+    required this.order_id,
+    required this.price,
+    required this.productname,
+    required this.image,
+     required this.first_name,
+    // required this.total,
 
   });
 
   factory salesModel.fromJson(Map<String, dynamic> json) {
     return salesModel(
-      bill_number: json['bill_number '],
       id: json['user_id'],
-      Username: json['user_name'],
-      Amount: json['price'],
-      Amounttype: json['payment_type'],
-      Date: json[' date'],
-      totalValue: json[' totalValue'],
+      mode: json['mode'],
+      date: json['date'],
+      order_id: json['_id'],
+      price: json['price'],
+      productname: json['product_name'],
+       image: json['product_image'],
+     first_name: json['first_name'],
+      // total: json['total'],
 
     );
   }

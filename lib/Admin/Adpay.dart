@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trip/Admin/model/salesModel.dart';
+import 'package:trip/Api/api_sevices.dart';
 
 class admpaymt extends StatefulWidget {
   const admpaymt({Key? key}) : super(key: key);
@@ -14,11 +17,34 @@ class _admpaymtState extends State<admpaymt> {
     'images/60111.jpg',
     'images/60111.jpg',
   ];
-  // List _loadprooducts = [];
-  // ApiService client = ApiService();
-  final List<String> Billnumber= ["232445", "556", "4345", "45667"];
-  final List<String> Userid = ["3445", "45466", "34590", "123489"];
+  List _loadprooducts = [];
+  String user_id = '';
+  late SharedPreferences prefs;
+  ApiService client = ApiService();
+  final List<String> Orderid= ["232445", "556", "4345", "45667"];
   final List<String> Username = ["sudhee", "shamli", "vicy", "Aju"];
+  final List<String> total = ["sudhee", "shamli", "vicy", "Aju"];
+
+  final List<String> paymenttype= ["online", "Takeaway", "online", "Takeaway"];
+
+  final List<String> date= ["23-2-23", "23-2-23", "23-2-23", "23-2-23"];
+  bool _isExpanded=false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getId();
+
+  }
+
+
+  void getId()async{
+    prefs = await SharedPreferences.getInstance();
+    user_id = (prefs.getString('user_id') ?? '');
+    print('User ID ${user_id}');
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,12 +74,12 @@ class _admpaymtState extends State<admpaymt> {
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 40),
               ),
             ),
-            //           FutureBuilder <List<salesModel>>(
-            //     future: client.fetchsales(),
-            // builder: (BuildContext context,
-            // AsyncSnapshot<List<salesModel>> snapshot) {
-            // if (snapshot.hasData) {
-            // return
+                      FutureBuilder <List<salesModel>>(
+                future: client.fetchsales(),
+            builder: (BuildContext context,
+            AsyncSnapshot<List<salesModel>> snapshot) {
+            if (snapshot.hasData) {
+            return
             ListView.separated(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -62,7 +88,7 @@ class _admpaymtState extends State<admpaymt> {
                   height: 10,
                 );
               },
-              itemCount: 4,
+              itemCount:snapshot.data!.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -91,37 +117,54 @@ class _admpaymtState extends State<admpaymt> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Billnumber: ${Billnumber[index]}",
+                                Text("Username: ${Username[index]}",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                   ),
                                 ),
+
                                 SizedBox(height: 4),
-                                Text("Userid:${Userid[index]}",
+                                Text(" orderid:${(snapshot.data![index].order_id)}",
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey[600],
                                   ),
                                 ),
-                                SizedBox(height: 4),
-                                Text("Username:${
-                                    Username[index]}",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[600],
-                                  ),
-                                ),
+
+
+                    SizedBox(height: 4),
+                    Text("paymenttype:${(snapshot.data![index].mode)}",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(" date:${(snapshot.data![index].date)}",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    // SizedBox(height: 4),
+                    // Text("total:${(snapshot.data![index].total)}",
+                    //   style: TextStyle(
+                    //     fontSize: 14,
+                    //     color: Colors.grey[600],
+                    //   ),
+                    // ),
                               ],
                             ),
-                            Spacer(),
-                            IconButton(
-                              icon: Icon(Icons.edit),
-                              color: Colors.grey[600],
-                              onPressed: () {
 
-                              },
-                            ),
+                            // Spacer(),
+                            // IconButton(
+                            //   icon: Icon(Icons.edit),
+                            //   color: Colors.grey[600],
+                            //   onPressed: () {
+                            //
+                            //   },
+                            // ),
                           ],
                         ),
                       ),
@@ -129,12 +172,12 @@ class _admpaymtState extends State<admpaymt> {
                   ),
                 );
               },
-            ),
+            );
 
-// }
-            // return Center(child: CircularProgressIndicator());
-            //     }
-            //           ),
+}
+            return Center(child: CircularProgressIndicator());
+                }
+                      ),
 
           ],
         ),

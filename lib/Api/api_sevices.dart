@@ -228,9 +228,11 @@ class ApiService {
     }
   }
   Future<List<salesModel>> fetchsales() async {
-    var response = await Api().getData('/sales/view');
+    var response = await Api().getData('/order/view_orders');
+
     if (response.statusCode == 200) {
       var items = json.decode(response.body);
+      print(("sales${items}"));
 
 
       List<salesModel> products = List<salesModel>.from(

@@ -16,6 +16,7 @@ const paymentRouter = require('./src/routes/paymentRouter');
 const categoryRouter = require('./src/routes/categoryRouter');
 const salesRouter = require('./src/routes/salesRouter');
 
+
 const app = express()
 
 app.use(express.static('./public'));
@@ -38,6 +39,7 @@ app.use('/user',userRouter);
 app.use('/payment',paymentRouter);
 app.use('/category',categoryRouter);
 app.use('/sales',salesRouter);
+
 
 mongoose.connect('mongodb+srv://shamliya050:shamliya050@cluster0.e54v4o3.mongodb.net/Retail?retryWrites=true&w=majority').then(() => {
   app.listen(3000, function () {

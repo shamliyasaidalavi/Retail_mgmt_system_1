@@ -28,7 +28,7 @@ salesRouter.get('/view-sales', async (req, res) => {
       })
   }
   })
-salesRouter.post('/viewsales', async function (req, res) {
+salesRouter.post('/sales', async function (req, res) {
   try {
     const data = {
         product_name: req.body. product_name ,
@@ -50,4 +50,4 @@ salesRouter.post('/viewsales', async function (req, res) {
   }
 });
 
-module.exports = salesModel;
+module.exports = salesRouter;

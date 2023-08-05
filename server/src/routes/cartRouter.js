@@ -193,9 +193,9 @@ cartRouter.post('/save-order/:id', async (req, res) => {
                 total: carts[i].total,
                 totalValue: totalValue,
                 quantity: carts[i].quantity,
-                mode: req.body.mode,
+                mode: null,
                 date: formattedDate,
-                status: 0,
+                status: 1,
             });
 
             datas.push(await orderData.save());

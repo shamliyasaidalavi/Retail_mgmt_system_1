@@ -8,7 +8,7 @@ const orderRouter = express.Router();
 orderRouter.get('/make-payment/:id', async function (req, res) {
     try {
         const id = req.params.id
-        const mode = req.query.mode
+        const mode = 'online'
         console.log(id);
         const data = await orderModel.find({ user_id: id, status: 1 })
         for (let i = 0; i < data.length; i++) {
@@ -52,7 +52,81 @@ orderRouter.get('/view_order/:id', async (req, res) => {
             },
             {
                 "$match": {
-                    "status": "0"
+                    "status": "1"
+                }
+            },
+            {
+                "$group": {
+                    '_id': '$_id',
+                    'quantity': { '$first': '$quantity' },
+                    'status': { '$first': '$status' },
+                    'product_id': { '$first': '$product._id' },
+                    'price': { '$first': '$product.price' },
+                    'product_name': { '$first': '$product.product_name' },
+                    'first_name': { '$first': '$first_name' },
+
+                    'user_id': { '$first': '$user_id' },
+                    
+
+                }
+            }
+        ])
+
+        data.forEach((item) => {
+            item.total = item.price * item.quantity;
+        });
+
+        let totalValue = 0;
+
+        for (const item of data) {
+            totalValue += item.total;
+        }
+
+        //   data.forEach((item) => {
+        //       item.total_amount = totalValue;
+        //   });
+
+        if (data[0] === undefined) {
+            return res.status(401).json({
+                success: false,
+                error: true,
+                message: "No Data Found!"
+            })
+        }
+        else {
+            return res.status(200).json({
+                success: true,
+                error: false,
+                data: data,
+                totalValue: totalValue
+            })
+        }
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            error: true,
+            message: "Something went wrongzz"
+        })
+    }
+})
+orderRouter.get('/view_orders', async (req, res) => {
+    try {
+         const data = await orderModel.aggregate([
+            {
+                '$lookup': {
+                    'from': 'product_tbs',
+                    'localField': 'product_id',
+                    'foreignField': '_id',
+                    'as': 'product'
+                }
+            },
+            {
+                "$unwind": "$product"
+            },
+           {
+                "$match": {
+                    "status": "2"
                 }
             },
             {
@@ -64,7 +138,11 @@ orderRouter.get('/view_order/:id', async (req, res) => {
                     'price': { '$first': '$product.price' },
                     'product_name': { '$first': '$product.product_name' },
                     'product_image': { '$first': '$product.product_image' },
-                    'user_id': { '$first': '$user_id' }
+                    'first_name': { '$first': '$first_name' },
+
+            'user_id': { '$first': '$user_id' },
+                    'mode':{'$first':'$mode'},
+                    'date':{'$first':'$date'},
                 }
             }
         ])
@@ -196,6 +274,7 @@ orderRouter.post('/order', async function (req, res) {
             user_id: product.user_id,
             price: $first.price,
             total: $first.total,
+            mode:null,
             quantity: $first.quantity,
             status: 0,
 

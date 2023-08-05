@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip/Admin/model/salesModel.dart';
 import 'package:trip/Counter/orderdetl.dart';
 import 'package:trip/Counter/userdtl.dart';
 
@@ -9,8 +10,8 @@ class orderuserss extends StatefulWidget {
   State<orderuserss> createState() => _orderuserssState();
 }
 
-final List<String> imageTitles = ["USER1", "USER2"];
-final List<String> user_name = ["sani", "sudhee"];
+final List<String> user = ["USER1", "USER2"];
+final List<String> first_name = ["sani", "sudhee"];
 
 class _orderuserssState extends State<orderuserss> {
   @override
@@ -42,73 +43,80 @@ class _orderuserssState extends State<orderuserss> {
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 40),
               ),
             ),
-            //           FutureBuilder <List<orderModel>>(
-            //     future: client.fetchorder(),
-            // builder: (BuildContext context,
-            // AsyncSnapshot<List<orderModel>> snapshot) {
-            // if (snapshot.hasData) {
-            // return
-            ListView.separated(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              separatorBuilder: (context, index) {
-                return SizedBox(
-                  height: 10,
-                );
-              },
-              itemCount: imageTitles.length, // Update the itemCount here
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Card(
-                    elevation: 2,
-                    child: InkWell(
-                      onTap: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      FutureBuilder <List<salesModel>>(
+                future: client.fetchsales(),
+            builder: (BuildContext context,
+            AsyncSnapshot<List<salesModel>> snapshot) {
+            if (snapshot.hasData) {
+              return
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  separatorBuilder: (context, index) {
+                    return SizedBox(
+                      height: 10,
+                    );
+                  },
+                  itemCount: imageTitles.length,
+                  // Update the itemCount here
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Card(
+                        elevation: 2,
+                        child: InkWell(
+                          onTap: () {},
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  imageTitles[index],
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
+                                SizedBox(width: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      user[index],
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    SizedBox(height: 4),
+                                    Text(
+                                      "${(snapshot.data![index].first_name)}",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(height: 4),
-                                Text(
-                                  user_name[index],
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[600],
-                                  ),
+                                Spacer(),
+                                IconButton(
+                                  icon: Icon(Icons.arrow_forward_ios_outlined),
+                                  color: Colors.grey[600],
+                                  onPressed: () {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(builder: (context) => userdtl()),
+                                    // );
+                                  },
                                 ),
                               ],
                             ),
-                            Spacer(),
-                            IconButton(
-                              icon: Icon(Icons.arrow_forward_ios_outlined),
-                              color: Colors.grey[600],
-                              onPressed: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(builder: (context) => userdtl()),
-                                // );
-                              },
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 );
-              },
-            ),
+
+              }
+
+    return Center(child: CircularProgressIndicator());
+    }
+    ),
           ],
         ),
       ),

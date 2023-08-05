@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:trip/Admin/model/salesModel.dart';
+import 'package:trip/Api/api.dart';
 import 'package:trip/Api/api_sevices.dart';
 
 class salesmoredetails extends StatefulWidget {
@@ -16,11 +19,33 @@ class _salesmoredetailsState extends State<salesmoredetails> {
     'images/two.jpg',
     'images/three.jpg',
   ];
-  // List _loadprooducts = [];
-  // ApiService client = ApiService();
+  List _loadprooducts = [];
+  ApiService client = ApiService();
+  String totalValue = '';
+  String total = '';
   final List<String> imageTitles = ["Rice", "Meat", "vegetables", "fruits"];
   final List<String> Titles = ["Rs100-2items", "Rs512.10-1item", "Rs50-4item", "Rs60.20-3item"];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchsales() ;
 
+  }
+  void fetchsales() async {
+    var response = await Api().getData('/order/view_orders');
+
+    if (response.statusCode == 200) {
+      var items = json.decode(response.body);
+      print((items));
+      setState(() {
+        total =items['totalValue'].toString();
+
+      });
+
+
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,13 +91,13 @@ class _salesmoredetailsState extends State<salesmoredetails> {
             ),
 
 
-    //         FutureBuilder  <List<salesModel>>(
-    // future: client.fetchsales(),
-    // builder: (BuildContext context,
-    // AsyncSnapshot<List<salesModel>> snapshot) {
-    // if (snapshot.hasData) {
-    //
-    // return
+            FutureBuilder  <List<salesModel>>(
+    future: client.fetchsales(),
+    builder: (BuildContext context,
+    AsyncSnapshot<List<salesModel>> snapshot) {
+    if (snapshot.hasData) {
+
+    return
             ListView.separated(
     shrinkWrap: true,
     separatorBuilder: (context, index) {
@@ -107,9 +132,9 @@ class _salesmoredetailsState extends State<salesmoredetails> {
 
     Column(
     children: [
-    Text("${imageTitles[index]}"
+    Text("${(snapshot.data![index].productname)}",
     ),
-    Text("${Titles[index]}"
+    Text("${(snapshot.data![index].price)}"
     ),
     ],
     ),
@@ -121,12 +146,11 @@ class _salesmoredetailsState extends State<salesmoredetails> {
     ),
     );
     },
-    ),
-    // }
-    // return Center(child: CircularProgressIndicator());
-    // }
-    //         ),
-
+    );
+    }
+    return Center(child: CircularProgressIndicator());
+    }
+            ),
             Container(
               height: 200,
               padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
@@ -142,7 +166,7 @@ class _salesmoredetailsState extends State<salesmoredetails> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('Offer'),
+
                             Text("Total Amout"),
                           ],
                         ),
@@ -150,7 +174,6 @@ class _salesmoredetailsState extends State<salesmoredetails> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('  \u{20B9} 10'),
 
                             Text('\u{20B9} 10,019',style: TextStyle(color: Colors.green),),
                           ],
@@ -162,6 +185,21 @@ class _salesmoredetailsState extends State<salesmoredetails> {
               ),
             ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Material(
+        color: const Color(0xffff8906),
+        child: SizedBox(
+          height: kToolbarHeight,
+          width: double.infinity,
+          child: Center(
+            child: Text(
+              "Total Amout  ${total} ",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ),
       ),
     );

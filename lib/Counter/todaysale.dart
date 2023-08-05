@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trip/Admin/model/salesModel.dart';
+import 'package:trip/Api/api.dart';
 import 'package:trip/Api/api_sevices.dart';
 
 import 'todaysalesmoredetails.dart';
@@ -18,12 +22,43 @@ class _todaysalesState extends State<todaysales> {
     'images/two.jpg',
     'images/three.jpg',
   ];
-  // List _loadprooducts = [];
-  // ApiService client = ApiService();
+  List _loadprooducts = [];
+  String user_id = '';
+  late SharedPreferences prefs;
+  ApiService client = ApiService();
   final List<String> imageTitles = ["12-5-2023", "12-5-2023", "12-5-2023", "12-5-2023"];
   final List<String> Titles = ["35465767", "354645", "35465767", "35465767"];
   final List<String> Titless = ["9", "5", "3", "2"];
   bool _isExpanded=false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getId();
+
+  }
+  void fetchsales() async {
+    var response = await Api().getData('/order/view_orders');
+
+    if (response.statusCode == 200) {
+      var items = json.decode(response.body);
+      print((items));
+      setState(() {
+        // total =items['totalValue'].toString();
+
+      });
+
+
+    }
+  }
+
+  void getId()async{
+    prefs = await SharedPreferences.getInstance();
+    user_id = (prefs.getString('user_id') ?? '');
+    print('User ID ${user_id}');
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,13 +96,13 @@ class _todaysalesState extends State<todaysales> {
                 ),
 
               ),
-    //
-    //           FutureBuilder <List<salesModel>>(
-    //     future: client.fetchsales(),
-    // builder: (BuildContext context,
-    // AsyncSnapshot<List<salesModel>> snapshot) {
-    // if (snapshot.hasData) {
-    // return
+
+              FutureBuilder <List<salesModel>>(
+        future: client.fetchsales(),
+    builder: (BuildContext context,
+    AsyncSnapshot<List<salesModel>> snapshot) {
+    if (snapshot.hasData) {
+    return
           ListView.separated(
     shrinkWrap: true,
     separatorBuilder: (context, index) {
@@ -94,12 +129,12 @@ class _todaysalesState extends State<todaysales> {
     Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-    Text("Date : ${imageTitles[index]}"
+    Text(" date:${(snapshot.data![index].date)}",
     ),
-    Text("Order id : ${Titles[index]}"
+    Text(" orderid:${(snapshot.data![index].order_id)}",
     ),
-    Text("items : ${Titless[index]}"
-    ),
+    // Text("items : ${Titless[index]}"
+    // ),
     ],
     ),
 
@@ -130,11 +165,11 @@ class _todaysalesState extends State<todaysales> {
     ),
     );
     },
-    ),
-    // }
-    // return Center(child: CircularProgressIndicator());
-    //     }
-    //           ),
+    );
+    }
+    return Center(child: CircularProgressIndicator());
+        }
+              ),
 
 
 

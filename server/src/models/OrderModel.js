@@ -4,9 +4,7 @@ const schema = mongoose.Schema
 
 const orderSchema = new schema({
     user_id: { type: mongoose.Types.ObjectId,ref:'user_tb' },
-    
     product_id: { type: mongoose.Types.ObjectId,ref:'product_tb' },
-
     quantity: { type: String },
     price: { type: String },
     total: { type: String },

@@ -1,6 +1,8 @@
 const express = require('express');
 const deliveryboyModel = require('../models/deliveryboyModel');
+const deliveryModel = require('../models/deliveryModel');
 const deliveryboyRouter = express.Router();
+
 deliveryboyRouter.get('/view-del', async (req, res) => {
   try {
       const users = await deliveryboyModel.find()
@@ -47,5 +49,20 @@ deliveryboyRouter.post('/delivery', async function (req, res) {
     
   }
 });
-
+deliveryboyRouter.post('/deliveryy', async function (req, res) {
+    try {
+      const data = {
+         
+          del_id: req.body.del_id, 
+         order_id:req.body.order_id,
+         user_id:req.body.user_id,
+        
+      };
+      const datas = await deliveryModel(data).save()
+      console.log(data);
+      
+    } catch (error) {
+      
+    }
+  });
 module.exports = deliveryboyRouter;
